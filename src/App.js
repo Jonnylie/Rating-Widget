@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useRef, useState, useEffect } from "react";
+import lottie from "lottie-web";
+import "./App.css";
+import RatingWidget from "./RatingWidget";
 
-function App() {
+const App = () => {
+  const [ratingValue, setRatingValue] = useState(0);
+  const container = useRef(null);
+
+  useEffect(() => {
+    lottie.loadAnimation({
+      container: container.current,
+      renderer: "svg",
+      loop: false,
+      autoplay: true,
+      animationData: require("./images/done.json"),
+    });
+  }, []);
+
+  useEffect(() => {
+    if (ratingValue) {
+      const element = document.querySelector(".text-container");
+      element.style.visibility = "visible";
+      element.classList.remove("text-container");
+      // -> triggering reflow /* The actual magic */
+      void element.offsetWidth;
+      element.classList.add("text-container");
+      lottie.stop();
+      lottie.play();
+    }
+  }, [ratingValue]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex">
+      <div className="container">
+        <h1>Rating Widget</h1>
+        <RatingWidget setRatingValue={setRatingValue} />
+        <div className="text-container">
+          <div className="done-icon" ref={container}></div>
+          <p>Thanks! You rated this {ratingValue} stars.</p>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
