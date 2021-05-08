@@ -1,5 +1,5 @@
 # Rating Widget
-a single page application built with React hooks and a simple animation. It allows the user to change the number of stars and
+A single page application built with React hooks and a simple animation. It allows the user to change the number of stars and
 includes a text message that updates when the user changes the star rating.
 
 ## Built With
