@@ -19,6 +19,8 @@
 
 h1 {
   color: rgb(78, 78, 78);
+  font-size: 45px;
+  font-weight: 500;
 }
 
 .text-container {
